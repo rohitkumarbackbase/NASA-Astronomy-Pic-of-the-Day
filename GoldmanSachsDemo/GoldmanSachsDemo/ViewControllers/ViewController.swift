@@ -34,18 +34,20 @@ class ViewController: UIViewController {
 
     @IBAction func datePickerValueChanged(_ sender: UIDatePicker) {
         loadImage(for: sender.date.onlyDate)
+        favoriteButton.isSelected = false
         view.endEditing(true)
     }
     
     @IBAction func favoriteTapped(_ sender: Any) {
+        guard let dataModel = dataModel else { return }
         favoriteButton.isSelected = !favoriteButton.isSelected
-        var favoriteList = PlistManager.sharedInstance.favouriteImages
-        if !favoriteList.contains(where: { $0 in
-            $0.url == dataModel.url
-        }) {
-            favoriteList.append(dataModel!)
+        if !favoriteButton.isSelected { return }
+        var favoriteList = PlistManager.sharedInstance.readPlist()
+        if !(favoriteList?.contains(where: { $0.url == dataModel.url }) ?? false)
+        {
+            favoriteList?.append(dataModel)
+            PlistManager.sharedInstance.writePlist(array: favoriteList!)
         }
-        
     }
     
     func loadImage(for date: String?) {

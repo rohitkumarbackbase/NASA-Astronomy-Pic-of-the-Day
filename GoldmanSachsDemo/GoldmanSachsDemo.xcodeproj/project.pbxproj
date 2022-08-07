@@ -167,7 +167,6 @@
 				F9D6AE19289D20590061C792 /* Services */,
 				F9D6ADE9289BCB690061C792 /* AppDelegate.swift */,
 				F9D6ADEB289BCB690061C792 /* SceneDelegate.swift */,
-				F913EAED289D627300AAF9C0 /* ImageCacheManager.swift */,
 				F9D6ADEF289BCB690061C792 /* Main.storyboard */,
 				F9D6ADF2289BCB6A0061C792 /* Assets.xcassets */,
 				F9D6ADF4289BCB6A0061C792 /* LaunchScreen.storyboard */,
@@ -196,6 +195,7 @@
 		F9D6AE19289D20590061C792 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				F913EAED289D627300AAF9C0 /* ImageCacheManager.swift */,
 				F9D6AE1A289D206D0061C792 /* NetworkService.swift */,
 				F9D6AE1C289D36170061C792 /* Constants.swift */,
 				F913EAEF289F6F4900AAF9C0 /* PlistManager.swift */,
