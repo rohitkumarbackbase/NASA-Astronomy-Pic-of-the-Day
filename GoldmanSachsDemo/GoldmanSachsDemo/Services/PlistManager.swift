@@ -49,7 +49,6 @@ struct PlistManager {
             if success {
                 print("file has been created!")
             }
-            
         } else {
             print("file already exist")
             let _ = dicContent.write(toFile: path, atomically: true)
