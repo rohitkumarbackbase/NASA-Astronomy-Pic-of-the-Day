@@ -15,8 +15,8 @@ struct NetworkService {
     func fetchingData(for date: String?, completion:@escaping (APODModel) -> ()) {
         
         let jsonURLString = Constants.k_serverURL
-        let queryItems = [URLQueryItem(name: "api_key", value: "4CcGs1Amkni8XFKYAl7SgZjjn7bF1xc3aFpyTOLz"),
-                          URLQueryItem(name: "date", value: date)]
+        let queryItems = [URLQueryItem(name: Constants.k_api_key, value: Constants.k_apiKey),
+                          URLQueryItem(name: Constants.k_date, value: date)]
         guard var urlComps = URLComponents(string: jsonURLString)  else { return }
         urlComps.queryItems = queryItems
         guard let finalURL = urlComps.url else { return }

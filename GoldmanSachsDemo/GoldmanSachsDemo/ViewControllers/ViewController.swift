@@ -30,10 +30,13 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         loadImage(for: nil)
+        favoriteButton.setImage(UIImage(systemName: "star.fill"), for: .selected)
+        favoriteButton.setImage(UIImage(systemName: "star"), for: .normal)
     }
 
     @IBAction func datePickerValueChanged(_ sender: UIDatePicker) {
         loadImage(for: sender.date.onlyDate)
+        imageView.image = #imageLiteral(resourceName: "loading")
         favoriteButton.isSelected = false
         view.endEditing(true)
     }
@@ -43,17 +46,15 @@ class ViewController: UIViewController {
         favoriteButton.isSelected = !favoriteButton.isSelected
         if !favoriteButton.isSelected { return }
         var favoriteList = PlistManager.sharedInstance.readPlist()
-        if !(favoriteList?.contains(where: { $0.url == dataModel.url }) ?? false)
+        if !(favoriteList.contains(where: { $0.url == dataModel.url }))
         {
-            favoriteList?.append(dataModel)
-            PlistManager.sharedInstance.writePlist(array: favoriteList!)
+            favoriteList.append(dataModel)
+            PlistManager.sharedInstance.favouriteImages = favoriteList
         }
     }
     
     func loadImage(for date: String?) {
-//        ImageCacheManager().restCache()
         NetworkService.sharedInstance.fetchingData(for: date) { [self] (data) in
-            print(data)
             dataModel = data
             DispatchQueue.main.async {
                 self.setText()

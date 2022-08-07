@@ -9,9 +9,23 @@ import Foundation
 
 struct PlistManager {
     
-    static let sharedInstance = PlistManager()
+    static var sharedInstance = PlistManager()
     
-    var favouriteImages = [APODModel]()
+    private var _favouriteImages = [APODModel]()
+    
+    var favouriteImages: [APODModel] {
+        get {
+            return self._favouriteImages
+        }
+        set {
+            self._favouriteImages = newValue
+            writePlist(array: newValue)
+        }
+    }
+    
+    private init() {
+        _favouriteImages = readPlist()
+    }
     
     func writePlist(array: [APODModel]) {
         var res: [[String: String?]] = []
@@ -19,41 +33,31 @@ struct PlistManager {
             res.append(obj.toDict())
         }
         let dicContent = NSArray(array: res)
-        
         let fileManager = FileManager.default
         let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
-        let path = documentDirectory.appending("/favourite_images.plist")
-//        guard let infoPlistPath = Bundle.main.path(forResource: "favourite_images", ofType: "plist") else { return }
-        
+        let path = documentDirectory.appending(Constants.k_fileName)
         if (!fileManager.fileExists(atPath: path)) {
             let success:Bool = dicContent.write(toFile: path, atomically: true)
             if success {
                 print("file has been created!")
-            }else{
-                print("unable to create the file")
             }
             
         } else {
             print("file already exist")
-            let success:Bool = dicContent.write(toFile: path, atomically: true)
-            if success {
-                print("file has been edited!")
-            }else{
-                print("unable to create the file")
-            }
+            let _ = dicContent.write(toFile: path, atomically: true)
         }
     }
     
-    func readPlist() -> [APODModel]? {
+    func readPlist() -> [APODModel] {
         let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
-        let path = documentDirectory.appending("/favourite_images.plist")
+        let path = documentDirectory.appending(Constants.k_fileName)
         if let obj = NSArray(contentsOfFile: path) {
             return getData(array: obj)
         }
-        return nil
+        return [APODModel]()
     }
     
-    func getData(array: NSArray) -> [APODModel]? {
+    func getData(array: NSArray) -> [APODModel] {
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: array, options: .prettyPrinted)
             do{
@@ -66,6 +70,6 @@ struct PlistManager {
         } catch {
             print(error.localizedDescription)
         }
-        return nil
+        return [APODModel]()
     }
 }
