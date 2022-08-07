@@ -10,6 +10,9 @@ import Foundation
 import Alamofire
 import AlamofireImage
 
+// MARK: - 'HomeViewController'
+
+/// <#Description#>
 class HomeViewController: UIViewController {
 
     @IBOutlet weak var datePicker: UIDatePicker!
@@ -32,8 +35,19 @@ class HomeViewController: UIViewController {
         favoriteButton.setImage(UIImage(systemName: "star.fill"), for: .selected)
         favoriteButton.setImage(UIImage(systemName: "star"), for: .normal)
         viewModel.didLoadData = {[weak self] in
-            self?.setText()
-            loa
+            guard let weakSelf = self else { return }
+            weakSelf.setText()
+            weakSelf.loadImage(fromImageURL: weakSelf.viewModel.model?.url, completion: {
+                print("Image downloaded")
+            })
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if !Connectivity.isConnectedToInternet {
+            let alert = UIAlertController(title: Constants.k_NOT_CONNECTED, message: Constants.k_NOT_CONNECTED_MSG, preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: Constants.k_DISMISS, style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
         }
     }
 
@@ -45,7 +59,7 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func favoriteTapped(_ sender: Any) {
-        guard let dataModel = viewModel.dataModel else { return }
+        guard let dataModel = viewModel.model else { return }
         favoriteButton.isSelected = !favoriteButton.isSelected
         if !favoriteButton.isSelected { return }
         var favoriteList = PlistManager.sharedInstance.readPlist()
@@ -57,14 +71,19 @@ class HomeViewController: UIViewController {
     }
     
     func setText() {
-        self.titleLabel.text = self.viewModel.dataModel?.title
-        self.explanationLabel.text = self.viewModel.dataModel?.explanation
-        super.updateViewConstraints()
+        DispatchQueue.main.async {
+            self.titleLabel.text = self.viewModel.model?.title
+            self.explanationLabel.text = self.viewModel.model?.explanation
+            super.updateViewConstraints()
+        }
     }
 
     
     private func displayImage(image : UIImage) {
-        self.imageView.image = image
+        DispatchQueue.main.async {
+            self.imageView.image = image
+            super.updateViewConstraints()
+        }
     }
     
     func loadImage(fromImageURL imageURL: String? , completion: @escaping ()->()) {

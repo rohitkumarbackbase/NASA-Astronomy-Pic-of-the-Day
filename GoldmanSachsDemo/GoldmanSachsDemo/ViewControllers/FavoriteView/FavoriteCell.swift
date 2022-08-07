@@ -7,12 +7,20 @@
 
 import UIKit
 
+// MARK: - 'FavoriteCell'
+
+/// Provides custom UI for entry of selected favorite images
 class FavoriteCell: UITableViewCell {
     
+    /// `UIImageView` for displaying the favorite image
     @IBOutlet weak var imgView: UIImageView!
+    /// `UILabel` for displaying the title of the image
     @IBOutlet weak var titleLabel: UILabel!
+    /// `UILabel` for displaying the date of the image
     @IBOutlet weak var dateLabel: UILabel!
+    /// Optional `APODModel` storing the image metadata
     var dataModel: APODModel?
+    /// `ImageCacheManager` for accessing the cached images
     var cacheManager = ImageCacheManager()
  
     /// This will load image from cache
@@ -22,6 +30,16 @@ class FavoriteCell: UITableViewCell {
         self.imgView.image = image
     }
     
+    func setupCell() {
+        titleLabel.text = dataModel?.title
+        dateLabel.text = dataModel?.date
+        imgView.image = #imageLiteral(resourceName: "loading")
+    }
+    
+    /// Fetches the image form network if not availble in cache
+    /// - Parameters:
+    ///   - imageURL: `URL` of the image to be fetched
+    ///   - completion: Block to be executed after the image fetched
     func loadImage(fromImageURL imageURL: String? , completion: @escaping ()->()) {
         
         guard let imagePath = imageURL else {

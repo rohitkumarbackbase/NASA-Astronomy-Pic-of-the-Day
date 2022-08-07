@@ -8,29 +8,27 @@
 import Foundation
 import UIKit
 
+// MARK: - 'HomeViewModel'
+
+/// ViewModel describing function for Home screen
 class HomeViewModel {
     
-    var dataModel: APODModel?
+    /// Instance of `APODModel` for storing the image meta data
+    var model: APODModel?
     
-    /// Reload Logbook view.
+    /// Block to execute after image data fetched.
     var didLoadData: () -> Void = {}
-    
-    /// Reload Logbook view.
-    var didLoadImage: () -> Void = {}
-    
-    var image: UIImage
     
     init() {
         loadImageData(for: nil)
     }
     
+    /// Fetch data form the network for the selected date
+    /// - Parameter date: String containg date for which image needed
     func loadImageData(for date: String?) {
-        NetworkService.sharedInstance.fetchingData(for: date) { [weak self] (data) in
-            self?.dataModel = data
+        NetworkService.sharedInstance.fetchingImageData(for: date) { [weak self] (data) in
+            self?.model = data
             self?.didLoadData()
-            self?.loadImage(fromImageURL: data.hdurl, completion: {
-                print("image downloaded")
-            })
         }
     }
 }

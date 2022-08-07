@@ -9,9 +9,8 @@ import Foundation
 
 extension Date {
     
-    /// <#Description#>
+    /// Provides date in String formatted as "yyyy-MM-dd"
     var onlyDate: String {
-        
         get {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"

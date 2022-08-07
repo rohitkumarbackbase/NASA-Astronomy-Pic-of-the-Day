@@ -8,11 +8,19 @@
 import Foundation
 import Alamofire
 
+// MARK: - 'NetworkService'
+
+/// Single point of contact for network services.
 struct NetworkService {
     
+    /// Represents shared instance for single point of access of network services.
     static let sharedInstance = NetworkService()
     
-    func fetchingData(for date: String?, completion:@escaping (APODModel) -> ()) {
+    /// Loads image details for the particular date.
+    /// - Parameters:
+    ///   - date: Optional string conating the date for which image needs to load
+    ///   - completion: The block to execute after data fetched from network call
+    func fetchingImageData(for date: String?, completion:@escaping (APODModel) -> ()) {
         
         let jsonURLString = Constants.k_serverURL
         let queryItems = [URLQueryItem(name: Constants.k_api_key, value: Constants.k_apiKey),

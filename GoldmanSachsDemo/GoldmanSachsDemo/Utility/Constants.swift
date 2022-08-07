@@ -17,4 +17,5 @@ struct Constants {
     static let k_fileName = "/favourite_images.plist"
     static let k_date = "date"
     static let k_api_key = "api_key"
+    static let k_DISMISS = "Dismiss"
 }
