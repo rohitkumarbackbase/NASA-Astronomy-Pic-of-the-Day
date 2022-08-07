@@ -21,6 +21,8 @@ struct APODModel: Codable {
         case title, url
     }
     
+    /// Converts `APODModel` to dictionary notation
+    /// - Returns: Dictonary object
     func toDict() -> [String : String?] {
         let dictionary = ["copyright" : self.copyright,
                           "date" : self.date,

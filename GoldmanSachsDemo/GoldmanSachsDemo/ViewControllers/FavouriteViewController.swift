@@ -9,9 +9,10 @@ import UIKit
 
 class FavouriteViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    /// <#Description#>
+    /// `UITableView` for faourite astronomy images .
     @IBOutlet weak var favoriteTableView: UITableView!
     
+    /// <#Description#>
     var favoriteList: [APODModel]? = PlistManager.sharedInstance.favouriteImages
     
     override func viewDidLoad() {
