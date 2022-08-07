@@ -21,8 +21,8 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="1Nz-vu-RSb"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="25"/>
-                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBlack" family="Helvetica Neue" pointSize="25"/>
+                                <color key="textColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qzd-qQ-YEA">
@@ -45,7 +45,7 @@
                                         </accessibility>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="lessThanOrEqual" constant="75" id="jbH-97-Kv2"/>
-                                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="75" id="mBC-MU-Nax"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="44" id="mBC-MU-Nax"/>
                                         </constraints>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain">
@@ -63,9 +63,10 @@
                                     <constraint firstAttribute="trailing" secondItem="Mug-KS-oKM" secondAttribute="trailing" id="7ys-mh-bi9"/>
                                     <constraint firstAttribute="height" constant="40" id="KDO-UX-auP"/>
                                     <constraint firstItem="fBQ-ds-dCh" firstAttribute="centerY" secondItem="Qzd-qQ-YEA" secondAttribute="centerY" id="eZL-o2-xZg"/>
+                                    <constraint firstItem="Mug-KS-oKM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="fBQ-ds-dCh" secondAttribute="trailing" constant="8" symbolic="YES" id="ygR-Kr-pXp"/>
                                 </constraints>
                             </view>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loading" translatesAutoresizingMaskIntoConstraints="NO" id="4bN-63-kNi">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loading" translatesAutoresizingMaskIntoConstraints="NO" id="4bN-63-kNi">
                                 <rect key="frame" x="0.0" y="137" width="414" height="676"/>
                                 <color key="backgroundColor" red="0.57414853570000002" green="0.57416242360000003" blue="0.57415497299999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
@@ -132,8 +133,8 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="16V-A8-3Lw"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="25"/>
-                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBlack" family="Helvetica Neue" pointSize="25"/>
+                                <color key="textColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="a7d-IL-2A7">
