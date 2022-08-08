@@ -15,6 +15,7 @@ class FavouriteViewController: UIViewController, UITableViewDelegate, UITableVie
     /// `UITableView` for faourite astronomy images .
     @IBOutlet weak var favoriteTableView: UITableView!
     
+    /// Instance of `FavoriteViewModel`
     var viewModel = FavoriteViewModel()
     
     override func viewDidLoad() {

@@ -12,21 +12,28 @@ import AlamofireImage
 
 // MARK: - 'HomeViewController'
 
-/// <#Description#>
+/// Provides UI for displaying the image of the day
 class HomeViewController: UIViewController {
-
+    
+    /// `UIDatePicker` for selecting the date for whcih picture is to be fetxhed
     @IBOutlet weak var datePicker: UIDatePicker!
     
+    /// `UIImageView` for displaying the image fetched
     @IBOutlet weak var imageView: UIImageView!
     
+    /// `UILabel` for displaying the title text of the image
     @IBOutlet weak var titleLabel: UILabel!
     
+    /// `UILabel` for displaying the explanation of the image
     @IBOutlet weak var explanationLabel: UILabel!
     
+    /// `UIButton` for marking the image as favorite
     @IBOutlet weak var favoriteButton: UIButton!
     
+    /// Instance of `HomeViewModel`
     var viewModel = HomeViewModel()
     
+    /// Instance of `ImageCacheManager`
     var cacheManager = ImageCacheManager()
     
     override func viewDidLoad() {
@@ -50,7 +57,9 @@ class HomeViewController: UIViewController {
             self.present(alert, animated: true, completion: nil)
         }
     }
-
+    
+    /// Selects the date from the date picker
+    /// - Parameter sender: Represents `UIDatePicker` on which selection event occurred.
     @IBAction func datePickerValueChanged(_ sender: UIDatePicker) {
         viewModel.loadImageData(for: sender.date.onlyDate)
         imageView.image = #imageLiteral(resourceName: "loading")
@@ -58,6 +67,9 @@ class HomeViewController: UIViewController {
         view.endEditing(true)
     }
     
+    /// Marks the image as favorite
+    ///
+    /// - Parameter sender: Represents `UIButton`
     @IBAction func favoriteTapped(_ sender: Any) {
         guard let dataModel = viewModel.model else { return }
         favoriteButton.isSelected = !favoriteButton.isSelected
@@ -70,6 +82,7 @@ class HomeViewController: UIViewController {
         }
     }
     
+    /// Sets the text form the fetched data to the labels
     func setText() {
         DispatchQueue.main.async {
             self.titleLabel.text = self.viewModel.model?.title
@@ -78,7 +91,8 @@ class HomeViewController: UIViewController {
         }
     }
 
-    
+    /// Sets the fetched image to the image view
+    /// - Parameter image: `UIImage` fetched from API
     private func displayImage(image : UIImage) {
         DispatchQueue.main.async {
             self.imageView.image = image
@@ -86,6 +100,10 @@ class HomeViewController: UIViewController {
         }
     }
     
+    /// Fetches image for the seletced date
+    /// - Parameters:
+    ///   - imageURL: URL fetched for the metadata of the image
+    ///   - completion: Block to be executed after r\the image fetched
     func loadImage(fromImageURL imageURL: String? , completion: @escaping ()->()) {
         
         guard let imagePath = imageURL else {
